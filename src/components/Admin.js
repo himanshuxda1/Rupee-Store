@@ -1,19 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { db } from '../utilites/firebase'
+import {
+    collection,
+    doc,
+    getDocs,
+    query,
+    setDoc,
+    where,
+  } from "firebase/firestore";
 
 
 export default function Admin() {
 
     // States to be used
-    const [empty, setEmpty] = useState(true)
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescrioption] = useState("")
+    const [category, setCategory] = useState("")
+    const [load, setLoad] = useState(false)
 
-    const checker = () =>{
-        if(name==="" || price==="" || description===""){
-            setEmpty(true);
-        }else {
-            setEmpty(false)
+
+    const checker = () => {
+        if (name === "" || price === "" || description === "" || category === "") {
+            alert("something is empty ")
+        } else {
+            submitb()
         }
     }
     const setNames = (e) => {
@@ -21,7 +32,6 @@ export default function Admin() {
     }
 
     const setPrices = (e) => {
-
         setPrice(e.target.value)
     }
 
@@ -29,19 +39,44 @@ export default function Admin() {
         setDescrioption(e.target.value)
     }
 
-    const submitb = (e) => {
-        checker();  
-        console.log("Hello");
-        if(empty === false){
-            alert("good to go")
-        } else{
-            alert("somethi is empty ")
-        }
+    const setCategorys = (e) => {
+        setCategory(e.target.value)
+        console.log(e.target.value);
     }
+
+    const submitb = (e) => {
+        setLoad(true)
+        const prodCollection = collection(db, "Products");
+        const prodID = Math.random().toString(36).substring(2);
+        const prodDoc = doc(prodCollection, prodID);
+        setDoc(prodDoc, {
+            id: prodID,
+            name: name,
+            price: price,
+            description: description,
+            category: category,
+            image: ''
+        })
+            .then(() => {
+                setLoad(false)
+                alert("Product Saved!!");
+            })
+            .catch((error) => {
+                setLoad(false)
+                alert("Error adding user data: ", error);
+            });
+   
+
+
+    }
+    // useEffect(()=>{
+    //     checker();
+    // }, [name, price, description, category])
 
     return (
         <div className='container'>
             <h3 className='my-5'>Welcome Admin</h3>
+            {load? <h1>Working</h1> : null}
             <form >
                 <div className="row">
                     <div className="col-md-6 my-3">
@@ -84,7 +119,7 @@ export default function Admin() {
                     <div className="col-md-6 my-3">
                         <div className='mb-3 d-flex'>
                             <label htmlFor="" className="form-label wrap mx-2">Category</label>
-                            <select className='form-select' name="" id="">
+                            <select onChange={setCategorys} className='form-select' name="" id="">
                                 <option value="" className='disabled text-center'>Select a category</option>
                                 <option value="Men's Fashion">Men's Fashion</option>
                                 <option value="Women's Fashion">Women's Fashion</option>
@@ -100,7 +135,7 @@ export default function Admin() {
                     </div>
 
                 </div>
-                <button onClick={()=>{submitb()}} type="submit" className="btn btn-primary">
+                <button onClick={() => { checker(); }} type="button" className="btn btn-primary">
                     Submit
                 </button>
             </form>

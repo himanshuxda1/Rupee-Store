@@ -75,7 +75,7 @@ export default function Home() {
                 {products?.length !== 0 ? products.map((items, num) => (
                     <div key={num} className="col-md-4 my-2">
                         <div className="card">
-                            <div className="card-header">{items.name}</div>
+                            <div className="card-header">{items.name.substring(0,125)}</div>
                             <div className="card-body">
                                 <img className="img-responsive imgus" src={items.image} alt="" />
                             </div>
