@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+
+
+.imgu{
+  width: 125px;
+  height: 125px;
+}
+.imgus{
+  height:200px;
+  max-width: 350px;
+}
+
+.wrap{
+  vertical-align: center;
+  margin: auto;
+  align-items: center;
+}
+.loading{
+  margin-top: 25vh;
+}
+
+.loadbg{
+  backdrop-filter: blur(5px);
+}
+.nostyle{
+  text-decoration: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
