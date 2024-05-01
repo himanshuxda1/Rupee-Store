@@ -58,15 +58,14 @@ export default function Home() {
         <>
         <Navbar/>
         <div className="container">
-            <h3 className="text-start"  >Categories</h3>
+            {load? null : <h3 className="text-start mb-4">Categories</h3>}
             <div className="row">
                 {load ? <div className="container">
                     <img className="loading" src="../images/cart_loading.gif" alt="" />
                 </div> :  null}               
                 {categories?.length !== 0 ? categories.map  ((items, num) => (
-                    <Link to={"/products"} state={{data:items.name}} key={num} className="col-md-3 my-3 nostyle">
+                    <Link to={"/products"} state={{data:items.name}} key={num} className="col-md-3 mb-5 nostyle">
                         <div className  ="card">
-                            
                             <div className="card-body bod">
                                 <img className="img-responsive imgu" src={items.image} alt="" />
                                 <div className="text-center my-2">{items.name}</div>
@@ -75,9 +74,10 @@ export default function Home() {
                     </Link>
                 )) : null}
             </div>
+            {load? null : <h3 className="text-start mb-4">Browse Products</h3>}
             <div className="row">
                 {products?.length !== 0 ? products.map((items, num) => (
-                    <div key={num} className="col-md-4 my-2">
+                    <div key={num} className="col-md-3 my-2">
                         <div className="card">
                             <div className="card-header">{items.name.substring(0,100)}</div>
                             <div className="card-body">
