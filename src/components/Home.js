@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, } from "react-router-dom";
 import { db } from "../utilites/firebase";
 import { collection, doc, getDocs, query, setDoc, where, orderBy } from "firebase/firestore";
+import Navbar from "./Navbar";
 export default function Home() {
 
     //States to be used
@@ -54,7 +55,10 @@ export default function Home() {
     }
 
     return (
+        <>
+        <Navbar/>
         <div className="container">
+            <h3 className="text-start"  >Categories</h3>
             <div className="row">
                 {load ? <div className="container">
                     <img className="loading" src="../images/cart_loading.gif" alt="" />
@@ -75,7 +79,7 @@ export default function Home() {
                 {products?.length !== 0 ? products.map((items, num) => (
                     <div key={num} className="col-md-4 my-2">
                         <div className="card">
-                            <div className="card-header">{items.name.substring(0,125)}</div>
+                            <div className="card-header">{items.name.substring(0,100)}</div>
                             <div className="card-body">
                                 <img className="img-responsive imgus" src={items.image} alt="" />
                             </div>
@@ -88,5 +92,7 @@ export default function Home() {
 
 
         </div>
+        </>
+
     );
 }

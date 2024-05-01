@@ -2,7 +2,18 @@
   text-align: center;
 }
 
-
+.text-white{
+  color: white;
+}
+.nav{
+  background-color: #113056;
+  padding: 0;
+}
+.navlogo{
+  width: 100px;
+  height: 80px;
+  /* border-radius: 10px; */
+}
 
 .imgu{
   width: 125px;

@@ -7,7 +7,8 @@ import {
     query,
     setDoc,
     where,
-  } from "firebase/firestore";
+} from "firebase/firestore";
+import Navbar from './Navbar';
 
 
 export default function Admin() {
@@ -65,7 +66,7 @@ export default function Admin() {
                 setLoad(false)
                 alert("Error adding user data: ", error);
             });
-   
+
 
 
     }
@@ -74,71 +75,76 @@ export default function Admin() {
     // }, [name, price, description, category])
 
     return (
-        <div className='container'>
-            <h3 className='my-5'>Welcome Admin</h3>
-            {load? <div className='container'><img src="../images/spinner.gif" alt="" /></div> : null}
-            <form >
-                <div className="row">
-                    <div className="col-md-6 my-3">
-                        <div className="mb-3 d-flex">
-                            <label htmlFor="exampleInputEmail1" className="form-label mx-2 wrap">
-                                Name/Title
-                            </label>
-                            <input
-                                onChange={setNames}
-                                type="text"
-                                className="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                            />
-                        </div>
-                    </div>
+        <>
+            <Navbar/>
 
-                    <div className="col-md-6 my-3">
-                        <div className="mb-3 d-flex">
-                            <label htmlFor="exampleInputPassword1" className="form-label wrap mx-2">
-                                Price
-                            </label>
-                            <input
-                                onChange={setPrices}
-                                type="number"
-                                className="form-control"
-                                id="exampleInputPassword1"
-                            />
+            <div className='container'>
+                <h3 className='my-5'>Welcome Admin</h3>
+                {load ? <div className='container'><img src="../images/spinner.gif" alt="" /></div> : null}
+                <form >
+                    <div className="row">
+                        <div className="col-md-6 my-3">
+                            <div className="mb-3 d-flex">
+                                <label htmlFor="exampleInputEmail1" className="form-label mx-2 wrap">
+                                    Name/Title
+                                </label>
+                                <input
+                                    onChange={setNames}
+                                    type="text"
+                                    className="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="col-md-6 my-3">
-                        <div className="mb-3 d-flex ">
-                            <label className="form-label wrap mx-2" htmlFor="exampleCheck1">
-                                Description
-                            </label>
-                            <textarea onChange={setDescriptions} type="text" className="form-control " id="exampleCheck1" />
+                        <div className="col-md-6 my-3">
+                            <div className="mb-3 d-flex">
+                                <label htmlFor="exampleInputPassword1" className="form-label wrap mx-2">
+                                    Price
+                                </label>
+                                <input
+                                    onChange={setPrices}
+                                    type="number"
+                                    className="form-control"
+                                    id="exampleInputPassword1"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-md-6 my-3">
-                        <div className='mb-3 d-flex'>
-                            <label htmlFor="" className="form-label wrap mx-2">Category</label>
-                            <select onChange={setCategorys} className='form-select' name="" id="">
-                                <option value="" className='disabled text-center'>Select a category</option>
-                                <option value="Men's Fashion">Men's Fashion</option>
-                                <option value="Women's Fashion">Women's Fashion</option>
-                                <option value="Electronics ">Electronics</option>
-                                <option value="Books">Books</option>
-                            </select>
+
+                        <div className="col-md-6 my-3">
+                            <div className="mb-3 d-flex ">
+                                <label className="form-label wrap mx-2" htmlFor="exampleCheck1">
+                                    Description
+                                </label>
+                                <textarea onChange={setDescriptions} type="text" className="form-control " id="exampleCheck1" />
+                            </div>
                         </div>
-                    </div>
+                        <div className="col-md-6 my-3">
+                            <div className='mb-3 d-flex'>
+                                <label htmlFor="" className="form-label wrap mx-2">Category</label>
+                                <select onChange={setCategorys} className='form-select' name="" id="">
+                                    <option value="" className='disabled text-center'>Select a category</option>
+                                    <option value="Men's Fashion">Men's Fashion</option>
+                                    <option value="Women's Fashion">Women's Fashion</option>
+                                    <option value="Electronics ">Electronics</option>
+                                    <option value="Books">Books</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="" className="form-label">Image</label>
-                        <input className='' type="file" />
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="" className="form-label">Image</label>
+                            <input className='' type="file" />
+                        </div>
 
-                </div>
-                <button onClick={() => { checker(); }} type="button" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
-        </div>
+                    </div>
+                    <button onClick={() => { checker(); }} type="button" className="btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </>
+
     )
 }

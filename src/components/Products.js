@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import { db } from "../utilites/firebase";
 import { collection, doc, getDocs, query, setDoc, where, orderBy } from "firebase/firestore";
+import Navbar from './Navbar';
 
 
 
@@ -47,6 +48,8 @@ export default function Products() {
   useEffect(() => { getProducts(); }, [])
 
   return (
+    <>
+    <Navbar/>
     <div className='container'>
       <div className="row">
         {notFound? <div className='container loading'>
@@ -65,6 +68,8 @@ export default function Products() {
         )) : null}
       </div>
     </div>
+    </>
+
 
   )
 }
