@@ -76,7 +76,7 @@ export default function Admin() {
     return (
         <div className='container'>
             <h3 className='my-5'>Welcome Admin</h3>
-            {load? <h1>Working</h1> : null}
+            {load? <div className='container'><img src="../images/spinner.gif" alt="" /></div> : null}
             <form >
                 <div className="row">
                     <div className="col-md-6 my-3">
