@@ -2,7 +2,7 @@
 
     export default function Navbar() {
         return (
-            <div>
+            <div >
                 <nav className="navbar navbar-expand-lg nav mb-4">
                     <div className="container-fluid">
                         <a className="navbar-brand " href="#">
