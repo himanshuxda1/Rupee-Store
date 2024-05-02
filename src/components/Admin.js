@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { db } from '../utilites/firebase'
+import { storage, db } from '../utilites/firebase'
+import { getFirestore } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
     collection,
     doc,
@@ -18,11 +20,12 @@ export default function Admin() {
     const [price, setPrice] = useState("")
     const [description, setDescrioption] = useState("")
     const [category, setCategory] = useState("")
+    const [image, setImage] = useState("")
     const [load, setLoad] = useState(false)
 
 
     const checker = () => {
-        if (name === "" || price === "" || description === "" || category === "") {
+        if (name === "" || price === "" || description === "" || category === "" || image === "") {
             alert("something is empty ")
         } else {
             submitb()
@@ -44,39 +47,54 @@ export default function Admin() {
         setCategory(e.target.value)
         console.log(e.target.value);
     }
+    const setImages = (e) => {
+        const file = e.target.files[0]; // Get the selected file
+        setImage(file); // Set the selected file as the value of the image state
+        console.log(file);
+        console.log(e.target.value);
+    }
 
-    const submitb = (e) => {
-        setLoad(true)
+    const submitb = async () => {
+        setLoad(true);
         const prodCollection = collection(db, "Products");
         const prodID = Math.random().toString(36).substring(2);
         const prodDoc = doc(prodCollection, prodID);
+
+
+        // Upload image to Firebase Storage
+        const storageRef = ref(storage, `Products/${prodID}`);
+        await uploadBytes(storageRef, image);
+
+        // Get download URL of the uploaded image
+        const imageURL = await getDownloadURL(storageRef);
+
         setDoc(prodDoc, {
             id: prodID,
             name: name,
             price: price,
             description: description,
             category: category,
-            image: ''
+            image: imageURL,
         })
             .then(() => {
                 setLoad(false)
-                alert("Product Saved!!");
+                if (load === false) { alert("Product Saved!!"); }
+
             })
             .catch((error) => {
                 setLoad(false)
                 alert("Error adding user data: ", error);
             });
 
-
-
     }
+
     // useEffect(()=>{
     //     checker();
     // }, [name, price, description, category])
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
 
             <div className='container'>
                 <h3 className='my-5'>Welcome Admin</h3>
@@ -135,7 +153,7 @@ export default function Admin() {
 
                         <div className="mb-3">
                             <label htmlFor="" className="form-label">Image</label>
-                            <input className='' type="file" />
+                            <input onChange={setImages} className='form-control' type="file" accept="image/*" />
                         </div>
 
                     </div>
@@ -145,6 +163,5 @@ export default function Admin() {
                 </form>
             </div>
         </>
-
     )
 }

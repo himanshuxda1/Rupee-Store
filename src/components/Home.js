@@ -5,6 +5,7 @@ import { Link, } from "react-router-dom";
 import { db } from "../utilites/firebase";
 import { collection, doc, getDocs, query, setDoc, where, orderBy } from "firebase/firestore";
 import Navbar from "./Navbar";
+import "./textstyle.css"
 export default function Home() {
 
     //States to be used
@@ -79,10 +80,20 @@ export default function Home() {
                 {products?.length !== 0 ? products.map((items, num) => (
                     <div key={num} className="col-md-3 my-2">
                         <div className="card">
-                            <div className="card-header">{items.name.substring(0,100)}</div>
                             <div className="card-body">
                                 <img className="img-responsive imgus" src={items.image} alt="" />
+                            {/* <h5 className="titleText" >{items.name.substring(0,50) }{items.name.length>50 ? '...':null}</h5> */}
+                            <h5 className="titleText" >{items.name.length>50 ? `${items.name.substring(0,50)}...` : items.name.substring(0,50)}</h5>
+
+                            <div className="row">
+                                    <div className="col-md-6 ">
+                                    <h5>&#8377;{items.price}</h5>
+                                    </div>
+                                </div>
                             </div>
+                            
+                                
+                            
                         </div>
                     </div>
 

@@ -59,7 +59,7 @@ export default function Products() {
           <img className='loading' src="../images/cart_loading.gif" alt="" />
         </div>: null}
         {result ? products.map((items, num)=> (
-          <div className="col-md-4" key={num}>
+          <div className="col-md-3" key={num}>
             <div className="card">
               <div className="card-header">{items.name}</div>
               <div className="card-body"><img className='imgu' src={items.image} alt="" /></div>
